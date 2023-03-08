@@ -4,40 +4,44 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Integer numeric[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 
-        // Hier mag je je code scrijven voor de hoofd-opdracht
+        String alphabetic[] = {"een", "twee", "drie", "vier", "vijf", "zes", "zeven", "acht", "negen", "nul"};
 
-        /* deze regel mag je weg halen voor de bonus opdracht. Onderstaande code is voor de bonus opdracht.
-        HashSet<Integer> secretnumber = randomnumbergenerator();
-        String stringnumber =  setToStringConverter(secretnumber);
-        System.out.println(stringnumber);
-        feedback();
-         deze regel mag je weg halen voor de bonus opdracht */
+        Translator myTranslator = new Translator(alphabetic,numeric);
 
-    }
+        boolean play = true;
 
-    /*
-     Deze methode is voor de bonus opdracht.
-     */
-    public static void feedback(String stringnumber) {
+        String ongeldig = "ongeldige invoer";
+
         Scanner scanner = new Scanner(System.in);
-        StringBuilder feedback = new StringBuilder();
-        System.out.println("+ = juiste nummer op de juiste plek, O = juiste nummer verkeerde plek, X = verkeerde nummer");
-        System.out.println("Doe een gok, Let op vul 4 getallen in.");
-        String guess = scanner.nextLine();
-        if (Objects.equals(guess, stringnumber)) {
-            System.out.println("gefeliciteerd je hebt het goed");
-        } else {
-            for (int i = 0; i < 4; i++) {
-                if (guess.substring(i, i + 1).equals(stringnumber.substring(i, i + 1))) {
-                    feedback.append("+");
-                } else if (stringnumber.contains(guess.substring(i, i + 1))) {
-                    feedback.append("0");
+
+
+        while (play) {
+            System.out.println("Type 'x' om te stoppen\ntype 'v' om te vertalen");
+            String input = scanner.nextLine();
+
+            if (input.equals("x")) {
+                play = false;
+            } else if (input.equals("v")) {
+                System.out.println("Type een cijfer in van 0 t/m 9");
+
+                int number = scanner.nextInt();
+                scanner.nextLine();
+
+                if (number < 10) {
+                    String result = myTranslator.translate(number);
+
+                    System.out.println("De vertaling van " + number + " is " + result);
+
                 } else {
-                    feedback.append("X");
+                    System.out.println(ongeldig);
                 }
+            } else {
+                System.out.println(ongeldig);
             }
         }
-        System.out.println(feedback.toString());
     }
 }
+
+
